@@ -1,24 +1,21 @@
-class Animal:
-    def __init__(self, name):
-        self.name = name
+class Parent:
+    meta = "parent"
 
-    def move(self):
-        print('move')
+    @classmethod
+    def class_method(cls):
+        return cls()
 
-    def speak(self):
-        pass
+    @staticmethod
+    def static_method():
+        return Parent()
 
 
-class Dog(Animal):
-    def speak(self):
-        print('bark')
+class Child(Parent):
+    meta = "child"
 
-class Cat(Animal):
-    def speak(self):
-        print('meow')
 
-dog = Dog('doggy')
-dog.speak() # bark
+test1 = Child.class_method()
+test2 = Child.static_method()
 
-cat = Cat('kitty')
-cat.speak() # meow
+print(test1.meta) # child
+print(test2.meta) # parent
