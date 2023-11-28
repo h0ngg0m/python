@@ -1,20 +1,16 @@
-class DecoWithArgs:
-    def __init__(self, decoargs):
-        self.decoargs = decoargs
+import asyncio
 
-    def __call__(self, func):
-        def wrapper(*args, **kwargs):
-            print("before")
-            print('decoargs', self.decoargs)
-            result = func(*args, **kwargs)
-            print("after")
-            return result
-        return wrapper
+async def coro1():
+    print('C1: Start') # 1
+    await asyncio.sleep(1) # 2
+    print('C1: Stop') # 5
 
+async def coro2():
+    print('C2: Start') # 3
+    await asyncio.sleep(2) # 4
+    print('C2: Stop') # 6
 
-@DecoWithArgs("decoargs")
-def test(a, *, b, c):
-    print(a, b, c)
-
-
-test(1, b=2, c=3)
+loop = asyncio.get_event_loop()
+loop.create_task(coro1())
+loop.create_task(coro2())
+loop.run_forever()
