@@ -42,11 +42,14 @@ def test(a, *, b, c):
     print(a, b, c)
 
 
-test(1, b=2, c=3)
+test(1, b=2, c=3) # 이 함수는 보기에는 test 함수지만 사실 wrapper 함수이다.
+
+print(test.__name__) # wrapper
 '''
 before
 1 2 3
 after
+wrapper
 '''
 
 # 클래스 데코레이터
